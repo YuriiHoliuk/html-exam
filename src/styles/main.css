@@ -1,0 +1,144 @@
+html {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+.page {
+  --card-width: 200px;
+  --gap: 30px;
+  --max-cards: 4;
+
+  margin: 0;
+}
+
+.page__athletes {
+  max-width: calc(
+    var(--max-cards) * var(--card-width)
+    + (var(--max-cards) + 1) * var(--gap)
+  );
+
+  margin: 0 auto;
+}
+
+.athletes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--card-width));
+  gap: 40px var(--gap);
+  justify-content: center;
+
+  padding: var(--gap);
+}
+
+@media (max-width: 959px) {
+  .page {
+    --max-cards: 2;
+  }
+}
+
+.athlete {
+  position: relative;
+
+  text-align: center;
+
+  transition: transform 1s;
+}
+
+.athlete::before {
+  content: "";
+
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  /* TODO: better way */
+  bottom: -46px;
+  z-index: -1;
+
+  background-color: #eee;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+.athlete:hover {
+  z-index: 1;
+  transform: scale(1.2);
+}
+
+.athlete:hover::before {
+  opacity: 1;
+}
+
+.athlete__photo {
+  position: relative;
+
+  margin-bottom: 8px;
+}
+
+.athlete__img {
+  max-width: 100%;
+  height: auto;
+
+  border-radius: 50%;
+  transition: border-radius 1s;
+}
+
+.athlete:hover .athlete__img {
+  border-radius: 60px;
+}
+
+.athlete__rank {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  font-weight: bold;
+  color: #8b0000;
+
+  background-color: #fff;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.athlete__name {
+  font-size: 1.25rem;
+  line-height: calc(23 / 20);
+  font-weight: bold;
+  color: #2f4f4f;
+}
+
+.athlete__extra {
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+
+  width: var(--card-width);
+
+  font-size: 1.13rem;
+  line-height: calc(21 / 18);
+
+  opacity: 0;
+  transform: translateX(-50%);
+}
+
+.athlete:hover .athlete__extra {
+  opacity: 1;
+}
+
+.athlete__sport::after {
+  content: ",";
+}
+
+.athlete__pay::before {
+  content: "$";
+}
+
+.athlete__pay::after {
+  content: "M";
+}
